@@ -18,7 +18,7 @@ Cloner le projet en local
     • Affichage d'une notice à chaque soumission de formulaire.
     • ajouter page contact.
 # Consignes
-Vous devez lister les tâches, estimer leurs temps et utiliser le système de gestion de projet (comme kanban) pendant le projet. Vous devez réaliser le MCD et le MLD et au moins 2 tests unitaires. Vous respectez la charte graphique du projet existant. Vous devez effectuer un plan de recette pour au moins 2 fonctionnalités.
+Vous devez lister les tâches, estimer leurs temps. Vous devez réaliser le MCD et le MLD et au moins 2 tests unitaires. Vous respectez la charte graphique du projet existant. Vous devez effectuer un plan de recette pour au moins 2 fonctionnalités.
 Le front devra se rapprocher des images du dossier consignes.
 
 # Police et couleurs
