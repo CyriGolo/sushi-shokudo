@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `tp_category` (
   `id_category` int NOT NULL AUTO_INCREMENT,
   `name_category` varchar(20) NOT NULL,
   PRIMARY KEY (`id_category`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
