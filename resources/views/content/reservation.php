@@ -3,7 +3,7 @@
     <section class="flex flex-col gap-12">
         <img src="../img/turkoise.jpg" alt="hero" class="w-full max-h-[25vh] relative" />
         <section class="flex gap-6">
-            <article class="w-1/2 max-xl:max-w-full border-3 border-cyan-500 rounded-md">
+            <article class="w-1/2 max-xl:max-w-full border-3 border-cyan-500 rounded-md flex flex-col justify-between">
                 <img class="w-full h-34" src="../img/<?= $travel->getImage(); ?>" alt="<?= $travel->getName(); ?>" />
                 <h2 class="text-xl p-4"><?= $travel->getName(); ?></h2>
                 <p class="p-4 bg-cyan-100">1 semaine / personne : <?= $travel->getPrice(); ?>€</p>
