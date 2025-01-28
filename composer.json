@@ -1,0 +1,13 @@
+{
+  "name": "darius/mvc-lyon",
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10",
+    "phpunit/php-invoker": "^4.0"
+  }
+}
