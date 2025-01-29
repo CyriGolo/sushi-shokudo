@@ -1,8 +1,6 @@
 <?php
 namespace App;
 
-/** Class Router **/
-
 class Router {
 
     private $url;

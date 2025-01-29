@@ -11,12 +11,22 @@
 </head>
 <body class="flex flex-col min-h-screen w-screen overflow-x-hidden justify-between gap-4">
 <header class="relative py-4">
-  <nav class="flex items-center gap-6 z-99 relative px-[20vw]">
-    <img class="max-w-12" src="../img/Logo.png"/>
-    <ul class="flex gap-6">
-      <li><a href="/">Phoenix</a></li>
-      <li><a href="/travel">Choisir une destination</a></li>
-    </ul>
+  <nav class="flex items-center justify-between z-99 relative px-[20vw]">
+    <div class="flex items-center gap-6">
+      <img class="max-w-12" src="../img/Logo.png"/>
+      <ul class="flex gap-6">
+        <li><a href="/">Phoenix</a></li>
+        <li><a href="/travel">Choisir une destination</a></li>
+      </ul>
+    </div>
+    <?php if(isset($_SESSION["user"])) { ?>
+      <a href="/logout">Déconnexion</a></li>
+    <?php } else { ?>
+      <div class="flex gap-4">
+        <a href="/login">Connexion</a>
+        <a href="/register">Inscription</a>
+      </div>
+    <?php } ?>
   </nav>
   <span class="w-screen h-full bg-cyan-500 flex absolute top-0 left-0 z-2"/>
 </header>
