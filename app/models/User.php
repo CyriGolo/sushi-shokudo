@@ -6,7 +6,7 @@ class User {
     private $username;
     private $password;
     private $email;
-    private $id;
+    private $id_account;
 
     public function getUsername() {
         return $this->username;
@@ -16,8 +16,8 @@ class User {
         return $this->password;
     }
 
-    public function getId() {
-        return $this->id;
+    public function getIdAccount() {
+        return $this->id_account;
     }
 
     public function setUsername(String $username) {
@@ -36,7 +36,7 @@ class User {
         return $this->email;
     }
 
-    public function setId(Int $id) {
-        $this->id = $id;
+    public function setIdAccount(Int $idAccount) {
+        $this->id_account = $idAccount;
     }
 }

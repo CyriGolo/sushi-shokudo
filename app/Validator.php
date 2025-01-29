@@ -2,7 +2,6 @@
 
 namespace App;
 
-/** Class Validator **/
 class Validator {
 
     private $data;
@@ -21,7 +20,9 @@ class Validator {
         "alphaNumDash" => "Le champ peut contenir que des lettres minuscules, majuscules, des chiffres, des slash et des tirets !",
         "alphaNumSpace" => "Le champ peut contenir que des lettres, des chiffres et des espaces !",
         "numeric" => "Le champ peut contenir que des chiffres !",
-        "confirm" => "Le champs n'est pas conforme au confirm !"
+        "confirm" => "Le champs n'est pas conforme au confirm !",
+        "creditCard" => "Le champ doit correspondre à une carte de crédit !",
+        "phoneFormat" => "Le champ doit correspondre à un numéro de téléphone !"
     ];
     private $rules = [
         "required" => "#^.+$#",
@@ -37,8 +38,9 @@ class Validator {
         "alphaNumDash" => "#^[A-z0-9-\|]+$#",
         "alphaNumSpace" => "#^[A-z0-9\s]+$#",
         "numeric" => "#^[0-9]+$#",
-        "confirm" => ""
-
+        "confirm" => "",
+        "creditCard" => "#^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|6(?:011|5[0-9]{2})[0-9]{12}|(?:2131|1800|35\d{3})\d{11})$#",
+        "phoneFormat" => "#^(0\d{1}|\d{1}) ?\d{2} ?\d{2} ?\d{2} ?\d{2}$#",
     ];
 
     public function __construct($data = []) {
@@ -58,6 +60,10 @@ class Validator {
     }
 
     public function validateRule($field, $rule) {
+        if (!isset($this->data[$field])) {
+            return;
+        }
+
         $res = strrpos($rule, ":");
         if ($res == true) {
             $repRule = explode(":", $rule);

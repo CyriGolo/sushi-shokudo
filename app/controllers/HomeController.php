@@ -2,12 +2,17 @@
 
 namespace App\controllers;
 use App\models\TravelManager;
+use App\Validator;
 
-class HomeController extends BaseController
+class HomeController
 {
+    private $travelManager;
+    private $validator;
+
     public function __construct()
     {
         $this->travelManager = new TravelManager();
+        $this->validator = new Validator();
     }
 
     public function index()
@@ -21,29 +26,4 @@ class HomeController extends BaseController
         require VIEWS . 'content/travel.php';
     }
 
-    public function reservation($id)
-    {
-        $this->checkAuth();
-        $travels = $this->travelManager->getTravels();
-        $travel = $this->travelManager->getTravel($id);
-        unset($_SESSION["reservation"]);
-        require VIEWS . 'content/reservation.php';
-    }
-
-    public function reservationConfirm($id)
-    {
-        $this->checkAuth();
-        $travels = $this->travelManager->getTravels();
-        $travel = $this->travelManager->getTravel($id);
-        $_SESSION['reservation'] = $_POST;
-        require VIEWS . 'content/reservation.php';
-    }
-
-    public function confirmation() {
-        $this->checkAuth();
-        $firstform = $_SESSION['reservation'];
-        $secondform = $_POST;
-
-        require VIEWS . 'content/confirmation.php';
-    }
 }

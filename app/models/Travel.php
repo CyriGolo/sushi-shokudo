@@ -71,5 +71,4 @@ class Travel
     {
         $this->id_category = $id_category;
     }
-
 }
