@@ -17,6 +17,9 @@
       <ul class="flex gap-6">
         <li><a href="/">Phoenix</a></li>
         <li><a href="/travel">Choisir une destination</a></li>
+        <?php if(isset($_SESSION["user"]) && $_SESSION["user"]["role"] === 2) { ?>
+          <li><a href="/admin">Dashboard</a></li>
+        <?php } ?>
       </ul>
     </div>
     <?php if(isset($_SESSION["user"])) { ?>
@@ -36,10 +39,10 @@
 <footer class="relative px-[20vw] py-4">
   <ul class="relative z-99 flex justify-between">
     <li>Vos vacances de rêve ...</li>
-    <li>Plage ...</li>
-    <li>Urbaine ...</li>
-    <li>Croisière ...</li>
-    <li>Montagne ...</li>
+    <li><a href="/filtred/1">Plage ...</a></li>
+    <li><a href="/filtred/2">Urbaine ...</a></li>
+    <li><a href="/filtred/3">Croisière ...</a></li>
+    <li><a href="/filtred/4">Montagne ...</a></li>
     <li>A prix tout doux ...</li>
   </ul>
   <span class="w-screen h-full bg-cyan-500 flex absolute top-0 left-0 z-2"/>
