@@ -33,4 +33,23 @@ class TravelManager extends Model
 
         return $stmt->fetchAll();
     }
+
+    public function update(Travel $travel)
+    {
+        $stmt = $this->getDb()->prepare("UPDATE tp_travels SET name = ?, description = ?, image = ?, price = ?, id_category = ? WHERE id = ?");
+        $stmt->execute([
+            $travel->getName(),
+            $travel->getDescription(),
+            $travel->getImage(),
+            $travel->getPrice(),
+            $travel->getIdCategory(),
+            $travel->getId()
+        ]);
+    }
+
+    public function delete($id)
+    {
+        $stmt = $this->getDb()->prepare("DELETE FROM tp_travels WHERE id = ?");
+        $stmt->execute([$id]);
+    }
 }

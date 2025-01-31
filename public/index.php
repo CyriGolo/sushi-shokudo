@@ -25,11 +25,17 @@ $router->get('/filtred/:id', 'HomeController@filtredTravel');
 $router->post('/confirmation', 'OrderController@confirmation');
 
 $router->get('/admin', 'AdminController@dashboard');
-$router->post('/admin/updateTravel/{id}', 'AdminController@updateTravel');
-$router->post('/admin/deleteTravel/{id}', 'AdminController@deleteTravel');
-$router->post('/admin/updateUser/{id}', 'AdminController@updateUser');
-$router->post('/admin/deleteUser/{id}', 'AdminController@deleteUser');
-$router->post('/admin/updateOrder/{id}', 'AdminController@updateOrder');
-$router->post('/admin/deleteOrder/{id}', 'AdminController@deleteOrder');
+
+$router->get('/admin/updateTravel/:id', 'AdminController@updateTravel');
+$router->post('/admin/updateTravel/:id', 'AdminController@updateTravel');
+$router->get('/admin/deleteTravel/:id', 'AdminController@deleteTravel');
+
+$router->get('/admin/updateUser/:id', 'AdminController@updateUser');
+$router->post('/admin/updateUser/:id', 'AdminController@updateUser');
+$router->get('/admin/deleteUser/:id', 'AdminController@deleteUser');
+
+$router->get('/admin/updateOrder/:id', 'AdminController@updateOrder');
+$router->post('/admin/updateOrder/:id', 'AdminController@updateOrder');
+$router->get('/admin/deleteOrder/:id', 'AdminController@deleteOrder');
 
 $router->run();

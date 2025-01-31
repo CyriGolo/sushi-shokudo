@@ -98,7 +98,7 @@ class OrderController extends BaseController
             $user->setTel($secondform['phone']);
             $user->setNumCarte($secondform['card-number']);
             $user->setCrypto($secondform['crypto']);
-            $this->userManager->update($user);
+            $this->userManager->updatePayement($user);
 
             require VIEWS . 'content/confirmation.php';
         }

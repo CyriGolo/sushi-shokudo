@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Admin Dashboard</title>
-</head>
-<body>
-    <h1>Admin Dashboard</h1>
-
+<?php ob_start(); ?>
     <h2>Travels</h2>
     <table border="1">
         <tr>
@@ -95,5 +87,5 @@
             </tr>
         <?php endforeach; ?>
     </table>
-</body>
-</html>
+<?php $content = ob_get_clean(); ?>
+<?php require VIEWS . 'layout.php'; ?>

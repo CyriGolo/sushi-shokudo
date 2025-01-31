@@ -32,7 +32,7 @@ class UserManager extends Model {
         $stmt->execute([$_POST["username"], $password, $_POST["email"], 1]);
     }
 
-    public function update(User $user) {
+    public function updatePayement($user) {
         $stmt = $this->getDb()->prepare("UPDATE tp_accounts SET name = ?, address = ?, tel = ?, num_carte = ?, crypto = ? WHERE id_account = ?");
         $stmt->execute([
             $user->getName(),
@@ -48,5 +48,25 @@ class UserManager extends Model {
         $stmt = $this->getDb()->prepare("SELECT name_role FROM tp_roles WHERE id_role = ?");
         $stmt->execute([$id_role]);
         return $stmt->fetchColumn();
+    }
+
+    public function update(User $user)
+    {
+        $stmt = $this->getDb()->prepare("UPDATE tp_accounts SET username = ?, email = ?, name = ?, address = ?, tel = ?, id_role = ? WHERE id_account = ?");
+        $stmt->execute([
+            $user->getUsername(),
+            $user->getEmail(),
+            $user->getName(),
+            $user->getAddress(),
+            $user->getTel(),
+            $user->getIdRole(),
+            $user->getIdAccount()
+        ]);
+    }
+
+    public function delete($id)
+    {
+        $stmt = $this->getDb()->prepare("DELETE FROM tp_accounts WHERE id_account = ?");
+        $stmt->execute([$id]);
     }
 }
