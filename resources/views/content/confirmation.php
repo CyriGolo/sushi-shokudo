@@ -3,25 +3,25 @@
       <main class="flex flex-col gap-8">
         <div>
           <img src="../img/turkoise.jpg" alt="hero" class="w-full max-h-[25vh] relative" />
-          <p>Récapitulatif de votre réservation pour <?= $travel->getName() ?></p>
+          <p class="bg-blue-100 p-4 rounded-b-md">Récapitulatif de votre réservation pour <?= $travel->getName() ?></p>
         </div>
-        <table class="table-auto">
+        <table class="border-spacing-2 border-separate">
           <tbody>
             <tr>
-              <th>Participant(s)</th>
-              <td><?= $reservation->getNbPersonne() ?></td>
-              <th>Commande</th>
-              <td><?= $reservation->getReference() ?></td>
+              <th class="bg-yellow-200 p-4 rounded-md">Participant(s)</th>
+              <td class="bg-yellow-200 w-1/3 p-4 rounded-md"><?= $reservation->getNbPersonne() ?></td>
+              <th class="bg-green-200 p-4 rounded-md">Commande</th>
+              <td class="bg-green-200 w-1/3 p-4 rounded-md"><?= $reservation->getReference() ?></td>
             </tr>
             <tr>
-                <th>Semaine(s)</th>
-                <td><?= $reservation->getNbWeek() ?></td>
-                <th>Total</th>
-                <td><?= $reservation->getTotal() ?>€</td>
+                <th class="bg-yellow-200 p-4 rounded-md">Semaine(s)</th>
+                <td class="bg-yellow-200 w-1/3 p-4 rounded-md"><?= $reservation->getNbWeek() ?></td>
+                <th class="bg-green-200 p-4 rounded-md">Total</th>
+                <td class="bg-green-200 w-1/3 p-4 rounded-md"><?= $reservation->getTotal() ?>€</td>
               </tr>
           </tbody>
         </table>
-        <p class="w-full text-end">Bon séjour</p>
+        <p class="w-full text-end bg-blue-100 p-4 rounded-md">Bon séjour</p>
       </main>
       <ul class="flex justify-between gap-8">
           <?php foreach ($travels as $currTravel) : ?>

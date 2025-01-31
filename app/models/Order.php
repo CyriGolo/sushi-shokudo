@@ -4,7 +4,7 @@ namespace App\models;
 
 class Order
 {
-    private $id;
+    private $id_order;
     private $reference;
     private $id_account;
     private $id_travel;
@@ -14,7 +14,7 @@ class Order
 
     public function getId()
     {
-        return $this->id;
+        return $this->id_order;
     }
 
     public function getReference()

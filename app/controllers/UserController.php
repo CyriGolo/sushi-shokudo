@@ -55,7 +55,8 @@ class UserController {
                 $_SESSION["user"] = [
                     "id" => $idAccount,
                     "username" => $_POST["username"],
-                    "email" => $_POST["email"]
+                    "email" => $_POST["email"],
+                    "role" => 1
                 ];
                 header("Location: /");
             } else {
@@ -87,7 +88,8 @@ class UserController {
                 $_SESSION["user"] = [
                     "id" => $res->getIdAccount(),
                     "username" => $res->getUsername(),
-                    "email" => $res->getEmail()
+                    "email" => $res->getEmail(),
+                    "role" => $res->getIdRole()
                 ];
                 header("Location: /");
             } else {

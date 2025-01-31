@@ -24,4 +24,9 @@ class OrderManager extends Model
 
         return $stmt->fetch();
     }
+
+    public function getAllOrders() {
+        $stmt = $this->getDb()->query('SELECT * FROM tp_orders');
+        return $stmt->fetchAll(\PDO::FETCH_CLASS, "App\Models\Order");
+    }
 }

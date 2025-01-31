@@ -5,6 +5,7 @@ use App\models\TravelManager;
 use App\Validator;
 use App\models\OrderManager;
 use App\models\Order;
+use App\models\UserManager;
 
 class OrderController extends BaseController
 {
@@ -13,6 +14,7 @@ class OrderController extends BaseController
         $this->travelManager = new TravelManager();
         $this->validator = new Validator();
         $this->orderManager = new OrderManager();
+        $this->userManager = new UserManager();
     }
 
     public function reservation($id)
@@ -20,6 +22,7 @@ class OrderController extends BaseController
         $this->checkAuth();
         $travels = $this->travelManager->getTravels();
         $travel = $this->travelManager->getTravel($id);
+        $user = $this->userManager->findUser($_SESSION['user']['id']);
         if (!isset($_SESSION['reservation']['error'])) {
             unset($_SESSION["reservation"]);
         }
@@ -31,6 +34,7 @@ class OrderController extends BaseController
         $this->checkAuth();
         $travels = $this->travelManager->getTravels();
         $travel = $this->travelManager->getTravel($id);
+        $user = $this->userManager->findUser($_SESSION['user']['id']);
 
         $this->validator->validate([
             "email" => ["required", "email"],
@@ -87,6 +91,14 @@ class OrderController extends BaseController
             $reference = $order->getReference();
 
             $reservation = $this->orderManager->getOrder($reference);
+
+            $user = $this->userManager->findUser($_SESSION['user']['id']);
+            $user->setName($secondform['titulaire']);
+            $user->setAddress($secondform['facturation']);
+            $user->setTel($secondform['phone']);
+            $user->setNumCarte($secondform['card-number']);
+            $user->setCrypto($secondform['crypto']);
+            $this->userManager->update($user);
 
             require VIEWS . 'content/confirmation.php';
         }

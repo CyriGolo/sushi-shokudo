@@ -26,4 +26,10 @@ class HomeController
         require VIEWS . 'content/travel.php';
     }
 
+    public function filtredTravel($id_category)
+    {
+        $travels = $this->travelManager->getTravelsByCategory($id_category);
+        require VIEWS . 'content/travel.php';
+    }
+
 }
