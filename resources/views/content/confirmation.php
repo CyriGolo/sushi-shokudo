@@ -1,6 +1,6 @@
 <?php ob_start(); ?>
   <section class="flex flex-col gap-18">
-      <main class="flex flex-col gap-8">
+      <div class="flex flex-col gap-8">
         <div>
           <img src="../img/turkoise.jpg" alt="hero" class="w-full max-h-[25vh] relative" />
           <p class="bg-blue-100 p-4 rounded-b-md">Récapitulatif de votre réservation pour <?= $travel->getName() ?></p>
@@ -22,7 +22,7 @@
           </tbody>
         </table>
         <p class="w-full text-end bg-blue-100 p-4 rounded-md">Bon séjour</p>
-      </main>
+      </div>
       <ul class="flex justify-between gap-8">
           <?php foreach ($travels as $currTravel) : ?>
               <?php if ($travel->getId() === $currTravel->getId()) continue; ?>

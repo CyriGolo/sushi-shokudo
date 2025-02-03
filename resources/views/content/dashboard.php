@@ -1,6 +1,6 @@
 <?php ob_start(); ?>
     <h2>Travels</h2>
-    <table border="1">
+    <table class="border-2 border-black">
         <tr>
             <th>ID</th>
             <th>Name</th>
@@ -25,9 +25,36 @@
             </tr>
         <?php endforeach; ?>
     </table>
+    <a href="/admin/addTravel">Nouveau voyage</a>
+
+    <h2>Categories</h2>
+    <table class="border-2 border-black">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+        <?php foreach ($categories as $category): ?>
+            <tr>
+                <td><?= $category['id_category'] ?></td>
+                <td><?= $category['name_category'] ?></td>
+                <td>
+                    <a href="/admin/updateCategory/<?= $category['id_category'] ?>">Edit</a>
+                    <?php
+                    $travels = $this->travelManager->getTravelsByCategory($category['id_category']);
+                    if (empty($travels)): ?>
+                        <a href="/admin/deleteCategory/<?= $category['id_category'] ?>">Delete</a>
+                    <?php else: ?>
+                        <button disabled>Delete</button>
+                    <?php endif; ?>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+    <a href="/admin/addCategory">Nouvelle catégorie</a>
 
     <h2>Users</h2>
-    <table border="1">
+    <table class="border-2 border-black">
         <tr>
             <th>ID</th>
             <th>Username</th>
@@ -60,7 +87,7 @@
     </table>
 
     <h2>Orders</h2>
-    <table border="1">
+    <table class="border-2 border-black">
         <tr>
             <th>ID</th>
             <th>Reference</th>

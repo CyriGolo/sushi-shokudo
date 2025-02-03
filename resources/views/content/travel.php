@@ -15,6 +15,7 @@
                   <div class="flex flex-col gap-4 p-4">
                     <h2 class="text-xl"><?= $travel->getName(); ?></h2>
                     <p><?= $travel->getDescription(); ?></p>
+                    <p><?= $travel->getCategory(); ?></p>
                     <a href="/travel/<?= $travel->getId(); ?>" class="w-full p-2 border-cyan-500 border-2 rounded-md cursor-pointer text-center hover:bg-cyan-500 hover:text-white">Réserver maintenant !</a>
                   </div>
               </li>
