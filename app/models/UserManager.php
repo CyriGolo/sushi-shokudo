@@ -18,7 +18,8 @@ class UserManager extends Model {
         $stmt->execute([$id]);
         $stmt->setFetchMode(\PDO::FETCH_CLASS, User::class);
 
-        return $stmt->fetch();
+        $user = $stmt->fetch();
+        return $user !== false ? $user : null;
     }
 
     public function all() {
@@ -27,9 +28,22 @@ class UserManager extends Model {
         return $stmt->fetchAll(\PDO::FETCH_CLASS, "App\Models\User");
     }
 
-    public function store($password) {
-        $stmt = $this->getDb()->prepare("INSERT INTO tp_accounts(username, password, email, id_role) VALUES (?, ?, ?, ?)");
-        $stmt->execute([$_POST["username"], $password, $_POST["email"], 1]);
+    public function store($password)
+    {
+        try {
+            $stmt = $this->getDb()->prepare("INSERT INTO tp_accounts(username, password, email, id_role) VALUES (?, ?, ?, ?)");
+            $result = $stmt->execute([$_POST["username"], $password, $_POST["email"], 1]);
+            if ($result) {
+                return true;
+            } else {
+                $errorInfo = $stmt->errorInfo();
+                echo "Insert operation failed: " . $errorInfo[2];
+                return false;
+            }
+        } catch (\PDOException $e) {
+            echo "PDOException: " . $e->getMessage();
+            return false;
+        }
     }
 
     public function updatePayement($user) {

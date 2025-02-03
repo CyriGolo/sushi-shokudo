@@ -49,7 +49,7 @@ class Order
 
     public function setId($id)
     {
-        $this->id = $id;
+        $this->id_order = $id;
     }
 
     public function setReference($reference)
