@@ -2,6 +2,7 @@
 
 namespace App\controllers;
 use App\models\TravelManager;
+use App\models\OrderManager;
 use App\Validator;
 
 class HomeController
@@ -12,6 +13,7 @@ class HomeController
     public function __construct()
     {
         $this->travelManager = new TravelManager();
+        $this->orderManager = new OrderManager();
         $this->validator = new Validator();
     }
 
@@ -32,4 +34,15 @@ class HomeController
         require VIEWS . 'content/travel.php';
     }
 
+    public function voyages()
+    {
+        if (!isset($_SESSION['user'])) {
+            header('Location: /login');
+            exit();
+        }
+
+        $userId = $_SESSION['user']['id'];
+        $orders = $this->orderManager->getOrdersByUser($userId);
+        require VIEWS . 'content/voyages.php';
+    }
 }

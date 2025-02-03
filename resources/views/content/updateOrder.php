@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Update Order</title>
-</head>
-<body>
-    <h1>Update Order</h1>
+<?php ob_start(); ?>
+
+<section>
     <form method="POST">
         <label>Reference: <input type="text" name="reference" value="<?= $order->getReference() ?>"></label><br>
         <label>Account ID: <input type="text" name="id_account" value="<?= $order->getIdAccount() ?>"></label><br>
@@ -15,5 +10,7 @@
         <label>Total: <input type="text" name="total" value="<?= $order->getTotal() ?>"></label><br>
         <button type="submit">Update</button>
     </form>
-</body>
-</html>
+</section>
+
+<?php $content = ob_get_clean(); ?>
+<?php require VIEWS . 'layout.php'; ?>

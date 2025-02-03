@@ -42,6 +42,11 @@ class Travel
         return $this->id_category;
     }
 
+    public function getCategory()
+    {
+        return $this->name_category;
+    }
+
     public function setId($id)
     {
         $this->id = $id;
@@ -70,5 +75,10 @@ class Travel
     public function setIdCategory($id_category)
     {
         $this->id_category = $id_category;
+    }
+
+    public function setCategory($name_category)
+    {
+        $this->name_category = $name_category;
     }
 }

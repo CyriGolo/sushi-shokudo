@@ -2,6 +2,7 @@
 
 namespace App\controllers;
 
+use App\models\Travel;
 use App\models\TravelManager;
 use App\models\UserManager;
 use App\models\OrderManager;
@@ -34,29 +35,21 @@ class AdminController extends BaseController
         $users = $this->userManager->all();
         $userManager = $this->userManager;
         $orders = $this->orderManager->getAllOrders();
+        $categories = $this->travelManager->getCategories();
         require VIEWS . 'content/dashboard.php';
-    }
-
-    public function updateTravel($id)
-    {
-        $this->checkAdmin();
-        $travel = $this->travelManager->getTravel($id);
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $travel->setName($_POST['name']);
-            $travel->setDescription($_POST['description']);
-            $travel->setImage($_POST['image']);
-            $travel->setPrice($_POST['price']);
-            $travel->setIdCategory($_POST['id_category']);
-            $this->travelManager->update($travel);
-            header('Location: /admin');
-        }
-        require VIEWS . 'content/updateTravel.php';
     }
 
     public function deleteTravel($id)
     {
         $this->checkAdmin();
-        $this->travelManager->delete($id);
+        $travel = $this->travelManager->getTravel($id);
+        if ($travel) {
+            $imagePath = '../public/img/' . $travel->getImage();
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+            $this->travelManager->delete($id);
+        }
         header('Location: /admin');
     }
 
@@ -105,6 +98,107 @@ class AdminController extends BaseController
     {
         $this->checkAdmin();
         $this->orderManager->delete($id);
+        header('Location: /admin');
+    }
+
+    public function addTravel()
+    {
+        $this->checkAdmin();
+        $categories = $this->travelManager->getCategories();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $travel = new Travel();
+            $travel->setName($_POST['name']);
+            $travel->setDescription($_POST['description']);
+            $travel->setPrice($_POST['price']);
+            $travel->setIdCategory($_POST['id_category']);
+
+            if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+                $fileTmpPath = $_FILES['image']['tmp_name'];
+                $fileName = $_FILES['image']['name'];
+                $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
+                $newFileName = $travel->getName() . time() . '.' . $fileExtension;
+                $uploadFileDir = '../public/img/';
+                $dest_path = $uploadFileDir . $newFileName;
+
+                if (move_uploaded_file($fileTmpPath, $dest_path)) {
+                    $travel->setImage($newFileName);
+                }
+            }
+
+            $this->travelManager->add($travel);
+            header('Location: /admin');
+        }
+        require VIEWS . 'content/addTravel.php';
+    }
+
+    public function updateTravel($id)
+    {
+        $this->checkAdmin();
+        $travel = $this->travelManager->getTravel($id);
+        $categories = $this->travelManager->getCategories();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $travel->setName($_POST['name']);
+            $travel->setDescription($_POST['description']);
+            $travel->setPrice($_POST['price']);
+            $travel->setIdCategory($_POST['id_category']);
+
+            if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+                $fileTmpPath = $_FILES['image']['tmp_name'];
+                $fileName = $_FILES['image']['name'];
+                $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
+                $newFileName = $travel->getName() . $travel->getId() . '.' . $fileExtension;
+                $uploadFileDir = '../public/img/';
+                $dest_path = $uploadFileDir . $newFileName;
+
+                // Ensure the directory exists
+                if (!is_dir($uploadFileDir)) {
+                    mkdir($uploadFileDir, 0777, true);
+                }
+
+                if (move_uploaded_file($fileTmpPath, $dest_path)) {
+                    // Delete old image
+                    $oldImagePath = '../public/img/' . $travel->getImage();
+                    if (file_exists($oldImagePath)) {
+                        unlink($oldImagePath);
+                    }
+                    $travel->setImage($newFileName);
+                } else {
+                    // Handle upload error
+                    throw new \Exception('File upload failed: ' . $fileTmpPath . ' to ' . $dest_path);
+                }
+            }
+
+            $this->travelManager->update($travel);
+            header('Location: /admin');
+        }
+        require VIEWS . 'content/updateTravel.php';
+    }
+
+    public function addCategory()
+    {
+        $this->checkAdmin();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $this->travelManager->addCategory($_POST['name_category']);
+            header('Location: /admin');
+        }
+        require VIEWS . 'content/addCategory.php';
+    }
+
+    public function updateCategory($id)
+    {
+        $this->checkAdmin();
+        $category = $this->travelManager->getCategory($id);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $this->travelManager->updateCategory($id, $_POST['name_category']);
+            header('Location: /admin');
+        }
+        require VIEWS . 'content/updateCategory.php';
+    }
+
+    public function deleteCategory($id)
+    {
+        $this->checkAdmin();
+        $this->travelManager->deleteCategory($id);
         header('Location: /admin');
     }
 }

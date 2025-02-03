@@ -25,6 +25,19 @@ class OrderManager extends Model
         return $stmt->fetch();
     }
 
+    public function getOrdersByUser($userId)
+    {
+        $stmt = 'SELECT tp_orders.*, tp_travels.name, tp_travels.description, tp_travels.image, tp_travels.price 
+                 FROM tp_orders 
+                 JOIN tp_travels ON tp_orders.id_travel = tp_travels.id 
+                 WHERE tp_orders.id_account = :userId';
+        $stmt = $this->getDb()->prepare($stmt);
+        $stmt->execute(['userId' => $userId]);
+        $stmt->setFetchMode(\PDO::FETCH_ASSOC);
+
+        return $stmt->fetchAll();
+    }
+
     public function getAllOrders() {
         $stmt = $this->getDb()->query('SELECT * FROM tp_orders');
         return $stmt->fetchAll(\PDO::FETCH_CLASS, "App\Models\Order");
