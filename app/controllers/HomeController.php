@@ -1,20 +1,19 @@
 <?php
 
 namespace App\controllers;
-use App\models\TravelManager;
-use App\models\OrderManager;
+
+use App\Models\HomeManager;
 use App\Validator;
 
 class HomeController
 {
-    private $travelManager;
     private $validator;
+    private $manager;
 
     public function __construct()
     {
-        $this->travelManager = new TravelManager();
-        $this->orderManager = new OrderManager();
         $this->validator = new Validator();
+        $this->manager = new HomeManager();
     }
 
     public function index()
@@ -22,27 +21,11 @@ class HomeController
         require VIEWS . 'content/homepage.php';
     }
 
-    public  function travel()
+    public function showMenu()
     {
-        $travels = $this->travelManager->getTravels();
-        require VIEWS . 'content/travel.php';
+        $menus = $this->manager->getMenus();
+        require VIEWS . 'content/menu.php';
     }
 
-    public function filtredTravel($id_category)
-    {
-        $travels = $this->travelManager->getTravelsByCategory($id_category);
-        require VIEWS . 'content/travel.php';
-    }
 
-    public function voyages()
-    {
-        if (!isset($_SESSION['user'])) {
-            header('Location: /login');
-            exit();
-        }
-
-        $userId = $_SESSION['user']['id'];
-        $orders = $this->orderManager->getOrdersByUser($userId);
-        require VIEWS . 'content/voyages.php';
-    }
 }
